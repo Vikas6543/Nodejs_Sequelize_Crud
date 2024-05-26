@@ -13,6 +13,6 @@ router.get('/', getItems);
 router.get('/:id', getItemById);
 router.post('/createItem', authenticateToken, createItem);
 router.put('/updateItem/:id', authenticateToken, updateItem);
-router.delete('deleteItem/:id', authenticateToken, deleteItem);
+router.delete('/:id', authenticateToken, deleteItem);
 
 module.exports = router;
