@@ -1,5 +1,6 @@
 const Item = require('../models/itemsModel');
 const multer = require('../middleware/multerConfig');
+const { Op } = require('sequelize');
 
 // get all items - pagination
 exports.getItems = async (req, res) => {
@@ -59,6 +60,27 @@ exports.createItem = [
   },
 ];
 
+// search for a bid
+exports.searchItems = async (req, res) => {
+  const { name, date } = req.body;
+  try {
+    const items = await Item.findAll({
+      where: {
+        name: { [Op.like]: `%${name}%` } || null,
+        endTime: { [Op.gte]: date },
+      },
+    });
+
+    if (items.length === 0)
+      return res.status(404).json({ error: 'Item not found' });
+
+    res.status(200).json(items);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+// update item
 exports.updateItem = async (req, res) => {
   const item = await Item.findByPk(req.params.id);
 
@@ -76,6 +98,7 @@ exports.updateItem = async (req, res) => {
   }
 };
 
+// delete item
 exports.deleteItem = async (req, res) => {
   const item = await Item.findByPk(req.params.id);
   if (!item) return res.status(404).json({ error: 'Item not found' });
