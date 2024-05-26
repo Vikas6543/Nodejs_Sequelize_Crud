@@ -11,7 +11,15 @@ const initSocket = (server) => {
 
   // socket connection
   io.on('connection', (socket) => {
-    console.log('Socket Connected...');
+    socket.on('bid', async (data) => {
+      const item = await Item.findOne({ where: { id: data.itemId } });
+      const bid = await Bid.create({
+        item_id: data.itemId,
+        user_id: data.userId,
+        bid_amount: data.bidAmount,
+      });
+      io.emit('newBid', { bid, item });
+    });
   });
 };
 
