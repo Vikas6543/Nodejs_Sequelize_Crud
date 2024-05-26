@@ -33,6 +33,7 @@ Bid.sync();
 app.use('/auth', require('./routes/authRoute'));
 app.use('/items', require('./routes/itemRoute'));
 app.use('/bid', require('./routes/bidRoute'));
+app.use('/notification', require('./routes/notificationRoute'));
 
 app.listen(process.env.PORT, () => {
   console.log(`Server is running on port ${process.env.PORT}`);
