@@ -33,3 +33,7 @@
 
 - `GET /notification` - Get all notifications. (Authenticated users)
 - `POST /notification/markAsRead` - Mark notifications as read. (Authenticated users)
+
+### Postman Collection Link
+
+=> https://app.getpostman.com/join-team?invite_code=f5b8ed1423fcba09ef6ee228653d649f&target_code=09fabad45032b3772e97d390ae77a9a9
